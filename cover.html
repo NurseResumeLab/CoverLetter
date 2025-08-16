@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Cover Letter Builder</title>
+
+<!-- Google Fonts: signature + body/heading options -->
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Roboto:wght@400;500&family=Open+Sans:wght@400;600&family=Montserrat:wght@400;600&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #f7f7f7;
+    --card: #ffffff;
+    --ink: #111;
+    --muted: #4a5568;
+    --radius: 8px;
+    --shadow: 0 6px 16px rgba(0,0,0,0.08);
+  }
+
+  /* App frame */
+  body {
+    font-family: Arial, sans-serif;
+    background: var(--bg);
+    margin: 0;
+    padding: 20px;
+    color: #1f2937;
+  }
+
+  h1 {
+    text-align: center;
+    margin: 0 0 16px;
+    font-weight: 600;
+    letter-spacing: .2px;
+  }
+
+  .container {
+    display: flex;
+    gap: 20px;
+    max-width: 1200px;
+    margin: auto;
+    align-items: flex-start;
+  }
+
+  .form-section, .preview-section {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+
+  .form-section {
+    flex: 1;
+    padding: 20px;
+  }
+
+  .form-section label {
+    font-weight: 600;
+    display: block;
+    margin-top: 12px;
+    font-size: 13px;
+    color: #374151;
+  }
+
+  .form-section input,
+  .form-section textarea,
+  .form-section select {
+    width: 100%;
+    padding: 10px 12px;
+    margin-top: 6px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+    background: #fff;
+    box-sizing: border-box;
+    transition: border-color .15s ease, box-shadow .15s ease;
+  }
+
+  .form-section input:focus,
+  .form-section textarea:focus,
+  .form-section select:focus {
+    outline: none;
+    border-color: #93c5fd;
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+  }
+
+  .form-section textarea {
+    resize: vertical;
+    min-height: 140px;
+  }
+
+  .buttons {
+    margin-top: 18px;
+    display: flex;
+    gap: 10px;
+  }
+
+  .buttons button {
+    padding: 10px 16px;
+    border: none;
+    cursor: pointer;
+    background: #1f3a68; /* navy-ish primary */
+    color: white;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: .2px;
+  }
+
+  .buttons button#resetBtn {
+    background: #e5e7eb;
+    color: #111827;
+  }
+
+  .buttons button:hover {
+    filter: brightness(0.95);
+  }
+
+  .preview-section {
+    flex: 1;
+    padding: 0;
+  }
+
+  /* Letter page */
+  .letter-preview {
+    background: white;
+    width: 8.5in;
+    min-height: 11in;
+    padding: 0.75in 1in 1in 1in;
+    box-sizing: border-box;
+    font-size: 12pt;
+    line-height: 1.5;
+    color: var(--ink);
+    /* Theme variables with sensible defaults */
+    --accent: #1f3a68;               /* navy */
+    --heading-color: #111;
+    --body-font: "Times New Roman", Times, serif;
+    --name-font-weight: 700;
+    --name-size: 16pt;
+    --header-gap: 8px;
+    font-family: var(--body-font);
+  }
+
+  .header-info {
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    color: #232323;
+  }
+
+  .header-name {
+    margin: 0 0 6px 0;
+    font-weight: var(--name-font-weight);
+    font-size: var(--name-size);
+    color: var(--heading-color);
+    display: inline-block;
+    padding-bottom: 3px;
+    border-bottom: 2px solid var(--accent); /* Underline under name that adapts to theme color */
+  }
+
+  .contact-info {
+    margin: 0;
+    font-size: 10.5pt;
+    color: #444;
+  }
+
+  #prevHiringManager,
+  #prevCompany,
+  #prevCompanyAddress,
+  #prevDate {
+    margin: 0 0 4px 0;
+  }
+
+  /* Preserve body paragraph spacing cleanly */
+  #prevBody {
+    margin-top: 6px;
+    white-space: pre-wrap; /* preserves \n in both preview and PDF */
+  }
+
+  .signature {
+    font-family: 'Dancing Script', cursive; /* default, overridden inline when selected */
+    font-size: 20pt;
+    margin-top: 16px;
+    color: #111;
+  }
+
+  /* ========== Theme Styles (muted professional) ========== */
+  /* Classic – Times New Roman + Navy accent */
+  .style-classic {
+    --accent: #1f3a68; /* deep navy */
+    --heading-color: #12213b;
+    --body-font: "Times New Roman", Times, serif;
+    --name-size: 16pt;
+  }
+
+  /* Modern – Roboto + Slate accent */
+  .style-modern {
+    --accent: #334155; /* slate 700 */
+    --heading-color: #111827;
+    --body-font: "Roboto", Arial, sans-serif;
+    --name-size: 16pt;
+  }
+
+  /* Elegant – Playfair Display + Burgundy accent */
+  .style-elegant {
+    --accent: #7a2430; /* burgundy */
+    --heading-color: #36161a;
+    --body-font: "Playfair Display", Georgia, serif;
+    --name-size: 17pt;
+  }
+
+  /* Minimal – Open Sans + Charcoal accent */
+  .style-minimal {
+    --accent: #374151; /* charcoal */
+    --heading-color: #1f2937;
+    --body-font: "Open Sans", Arial, sans-serif;
+    --name-size: 16pt;
+  }
+
+  /* Professional – Merriweather + Navy top rule */
+  .style-professional {
+    --accent: #233b6e; /* muted navy */
+    --heading-color: #14223f;
+    --body-font: "Merriweather", Georgia, serif;
+    --name-size: 16.5pt;
+    position: relative;
+  }
+  .style-professional::before {
+    content: "";
+    position: absolute;
+    left: 1in; right: 1in; top: 0.75in;
+    border-top: 3px solid var(--accent);
+  }
+  /* add a smidge of top padding to avoid the line touching text */
+  .style-professional .header-info { padding-top: 8px; }
+
+  /* Contemporary – Montserrat (titles) feel with deep green accent */
+  .style-contemporary {
+    --accent: #2f4f3e; /* deep green */
+    --heading-color: #1f2a25;
+    --body-font: "Montserrat", "Open Sans", Arial, sans-serif;
+    --name-size: 16pt;
+  }
+</style>
+</head>
+<body>
+
+<h1>Cover Letter Builder</h1>
+
+<div class="container">
+  <!-- Controls -->
+  <div class="form-section">
+    <label for="template">Choose Nurse Specialty Template:</label>
+    <select id="template">
+      <option value="">-- Select Template --</option>
+      <option value="medsurg">Medical-Surgical Nurse</option>
+      <option value="icu">ICU Nurse</option>
+      <option value="er">Emergency Room Nurse</option>
+      <option value="travel">Travel Nurse</option>
+      <option value="leadership">Nurse Leadership</option>
+      <option value="newgrad">New Graduate Nurse</option>
+    </select>
+
+    <label>Your Name:</label>
+    <input type="text" id="name" placeholder="Full Name">
+
+    <label>Your Address:</label>
+    <input type="text" id="address" placeholder="Street, City, State, ZIP">
+
+    <label>Your Phone:</label>
+    <input type="text" id="phone" placeholder="(123) 456-7890">
+
+    <label>Your Email:</label>
+    <input type="text" id="email" placeholder="you@email.com">
+
+    <label>Date:</label>
+    <input type="text" id="date" placeholder="Month Day, Year">
+
+    <label>Hiring Manager Name:</label>
+    <input type="text" id="hiringManager" placeholder="Hiring Manager Name">
+
+    <label>Company Name:</label>
+    <input type="text" id="company" placeholder="Company Name">
+
+    <label>Company Address:</label>
+    <input type="text" id="companyAddress" placeholder="Street, City, State, ZIP">
+
+    <label>Cover Letter Body:</label>
+    <textarea id="body" rows="12" placeholder="Type your cover letter here..."></textarea>
+
+    <label>Signature Name:</label>
+    <input type="text" id="signatureName" placeholder="Your Signature Name">
+
+    <label>Signature Font:</label>
+    <select id="signatureFont">
+      <option value="'Dancing Script', cursive">Dancing Script</option>
+      <option value="'Great Vibes', cursive">Great Vibes</option>
+    </select>
+
+    <label>Cover Letter Style:</label>
+    <select id="coverStyle">
+      <option value="style-classic" selected>Classic (Navy)</option>
+      <option value="style-modern">Modern (Slate)</option>
+      <option value="style-elegant">Elegant (Burgundy)</option>
+      <option value="style-minimal">Minimal (Charcoal)</option>
+      <option value="style-professional">Professional (Navy Rule)</option>
+      <option value="style-contemporary">Contemporary (Deep Green)</option>
+    </select>
+
+    <div class="buttons">
+      <button id="resetBtn" type="button">Reset</button>
+      <button id="downloadBtn" type="button">Download PDF</button>
+    </div>
+  </div>
+
+  <!-- Preview -->
+  <div class="preview-section">
+    <div id="letterPreview" class="letter-preview style-classic">
+      <div class="header-info">
+        <div class="header-name" id="prevName">Your Name</div>
+        <div class="contact-info" id="prevAddress">Your Address</div>
+        <div class="contact-info" id="prevPhone">Phone</div>
+        <div class="contact-info" id="prevEmail">Email</div>
+        <div class="contact-info" id="prevDate">Date</div>
+      </div>
+
+      <div id="prevHiringManager">Hiring Manager Name</div>
+      <div id="prevCompany">Company Name</div>
+      <div id="prevCompanyAddress">Company Address</div>
+      <br>
+      <div id="prevBody">Cover letter text will appear here...</div>
+      <br><br>
+      <div id="prevSignoff">Sincerely,</div>
+      <div class="signature" id="prevSignature">Your Signature</div>
+      <div id="prevTypedName">Your Name</div>
+    </div>
+  </div>
+</div>
+
+<!-- html2pdf -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+/* Longer, two-paragraph defaults */
+const templates = {
+  medsurg: `I am eager to apply for the Medical-Surgical Nurse position at your facility. Over the course of my career, I have provided high-quality patient care in diverse medical settings. I excel at assessing patient needs, administering medications, monitoring for changes, and collaborating with interdisciplinary teams to coordinate effective care plans that prioritize safety and recovery.
+
+I am confident that my skills, reliability, and compassionate approach make me a strong fit for your team. I am committed to clear communication, patient education, and maintaining a supportive environment for both patients and families.`,
+  icu: `I am excited to apply for the ICU Nurse role at your hospital. My background includes caring for critically ill patients, performing rapid assessments, and operating advanced monitoring equipment including ventilators and invasive lines. I collaborate closely with physicians and allied professionals to ensure timely, evidence-based interventions.
+
+In addition to clinical skill, I support patients and families during stressful moments with empathy and clarity. I am dedicated to continuous learning and consistently seek opportunities to improve outcomes and team workflows.`,
+  er: `As an experienced Emergency Room Nurse, I thrive in high-acuity, fast-paced environments. I am skilled in triage, initiating critical interventions, and stabilizing patients with acute medical and traumatic conditions. I rely on strong clinical judgment, clear communication, and respectful teamwork to deliver efficient and compassionate care.
+
+I prioritize patient education and comfort even under pressure, ensuring individuals feel heard and supported. I would be honored to bring my experience and commitment to your emergency department.`,
+  travel: `I am a dedicated Travel Nurse with a track record of adapting quickly to new clinical settings while maintaining excellent standards of care. I have integrated seamlessly into diverse hospital units, rapidly learning workflows and systems to support teams and patient needs.
+
+My adaptability, cultural competence, and collaborative approach allow me to contribute effectively from day one. I look forward to bringing flexibility and clinical expertise to your organization.`,
+  leadership: `With a background in nursing leadership, I have successfully guided teams through staffing challenges, process improvements, and change management initiatives. I mentor clinicians, facilitate training, and promote a culture of accountability and empathy that enhances both patient outcomes and staff engagement.
+
+I am passionate about building cohesive, supportive teams and aligning daily practice with organizational goals. I would welcome the opportunity to support your mission and elevate standards across the unit.`,
+  newgrad: `As a recent nursing graduate, I bring a strong academic foundation and a patient-centered mindset. My clinical rotations provided experience across varied settings where I refined assessment skills, learned to prioritize competing demands, and collaborated with interdisciplinary teams.
+
+I am highly motivated to learn, grow, and contribute meaningfully to patient care. I take pride in reliability, compassion, and clear communication, and I am eager to build my career with your organization.`
+};
+
+/* Helper: toggle visibility for optional header fields */
+function setField(id, value, placeholder) {
+  const el = document.getElementById(id);
+  if (!value) {
+    el.textContent = placeholder;
+    el.style.display = "none";
+  } else {
+    el.textContent = value;
+    el.style.display = "block";
+  }
+}
+
+/* Update preview content + styles */
+function updatePreview() {
+  const name = document.getElementById("name").value || "Your Name";
+  const address = document.getElementById("address").value;
+  const phone = document.getElementById("phone").value;
+  const email = document.getElementById("email").value;
+  const date = document.getElementById("date").value;
+  const hiringManager = document.getElementById("hiringManager").value;
+  const company = document.getElementById("company").value;
+  const companyAddress = document.getElementById("companyAddress").value;
+
+  document.getElementById("prevName").textContent = name;
+  setField("prevAddress", address, "Your Address");
+  setField("prevPhone", phone, "Phone");
+  setField("prevEmail", email, "Email");
+  setField("prevDate", date, "Date");
+
+  document.getElementById("prevTypedName").textContent = name;
+  setField("prevHiringManager", hiringManager, "Hiring Manager Name");
+  setField("prevCompany", company, "Company Name");
+  setField("prevCompanyAddress", companyAddress, "Company Address");
+
+  /* Preserve paragraph spacing via CSS (pre-wrap).
+     Just set textContent; no need to inject <br> */
+  const bodyText = document.getElementById("body").value || "Cover letter text will appear here...";
+  document.getElementById("prevBody").textContent = bodyText;
+
+  /* Signature */
+  const sigName = document.getElementById("signatureName").value || name;
+  const sigFont = document.getElementById("signatureFont").value;
+  const signatureElem = document.getElementById("prevSignature");
+  signatureElem.textContent = sigName;
+  signatureElem.style.fontFamily = sigFont;
+
+  /* Apply theme */
+  const styleClass = document.getElementById("coverStyle").value;
+  const letter = document.getElementById("letterPreview");
+  letter.className = "letter-preview " + styleClass;
+}
+
+/* Wire up inputs */
+[
+  "template","name","address","phone","email","date","hiringManager",
+  "company","companyAddress","body","signatureName","signatureFont","coverStyle"
+].forEach(id => {
+  document.getElementById(id).addEventListener("input", (e) => {
+    if (id === "template") {
+      const selected = e.target.value;
+      if (templates[selected]) {
+        document.getElementById("body").value = templates[selected];
+      }
+    }
+    updatePreview();
+  });
+});
+
+/* Reset */
+document.getElementById("resetBtn").addEventListener("click", () => {
+  document.querySelectorAll("input, textarea, select").forEach(el => el.value = "");
+  // Keep Classic as default theme
+  document.getElementById("coverStyle").value = "style-classic";
+  updatePreview();
+});
+
+/* PDF */
+document.getElementById("downloadBtn").addEventListener("click", () => {
+  const element = document.getElementById("letterPreview");
+  const opt = {
+    margin: [0, 0, 0, 0],
+    filename: 'cover_letter.pdf',
+    image: { type: 'jpeg', quality: 1 },
+    html2canvas: { scale: 2, scrollY: 0 },
+    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+  };
+  html2pdf().set(opt).from(element).save();
+});
+
+/* Initial render */
+updatePreview();
+</script>
+</body>
+</html>
