@@ -191,18 +191,6 @@
 </head>
 <body>
 
-<script>
-  (function() {
-    const password = "NurseCover2025"; // <-- Set your password here
-    const userInput = prompt("Enter password to access this page:");
-    if (userInput === password) {
-      document.getElementById("protectedContent").style.display = "block";
-    } else {
-      document.body.innerHTML = "<h1>Access Denied</h1>";
-    }
-  })();
-</script>
-
 <div id="protectedContent" style="display:none;">
 <h1>Cover Letter Builder</h1>
 
@@ -296,108 +284,101 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
-const templates = {
-  medsurg: `I am eager to apply for the Medical-Surgical Nurse position at your facility. Over the course of my career, I have provided high-quality patient care in diverse medical settings. I excel at assessing patient needs, administering medications, monitoring for changes, and collaborating with interdisciplinary teams to coordinate effective care plans that prioritize safety and recovery.
-
-I am confident that my skills, reliability, and compassionate approach make me a strong fit for your team. I am committed to clear communication, patient education, and maintaining a supportive environment for both patients and families.`,
-  icu: `I am excited to apply for the ICU Nurse role at your hospital. My background includes caring for critically ill patients, performing rapid assessments, and operating advanced monitoring equipment including ventilators and invasive lines. I collaborate closely with physicians and allied professionals to ensure timely, evidence-based interventions.
-
-In addition to clinical skill, I support patients and families during stressful moments with empathy and clarity. I am dedicated to continuous learning and consistently seek opportunities to improve outcomes and team workflows.`,
-  er: `As an experienced Emergency Room Nurse, I thrive in high-acuity, fast-paced environments. I am skilled in triage, initiating critical interventions, and stabilizing patients with acute medical and traumatic conditions. I rely on strong clinical judgment, clear communication, and respectful teamwork to deliver efficient and compassionate care.
-
-I prioritize patient education and comfort even under pressure, ensuring individuals feel heard and supported. I would be honored to bring my experience and commitment to your emergency department.`,
-  travel: `I am a dedicated Travel Nurse with a track record of adapting quickly to new clinical settings while maintaining excellent standards of care. I have integrated seamlessly into diverse hospital units, rapidly learning workflows and systems to support teams and patient needs.
-
-My adaptability, cultural competence, and collaborative approach allow me to contribute effectively from day one. I look forward to bringing flexibility and clinical expertise to your organization.`,
-  leadership: `With a background in nursing leadership, I have successfully guided teams through staffing challenges, process improvements, and change management initiatives. I mentor clinicians, facilitate training, and promote a culture of accountability and empathy that enhances both patient outcomes and staff engagement.
-
-I am passionate about building cohesive, supportive teams and aligning daily practice with organizational goals. I would welcome the opportunity to support your mission and elevate standards across the unit.`,
-  newgrad: `As a recent nursing graduate, I bring a strong academic foundation and a patient-centered mindset. My clinical rotations provided experience across varied settings where I refined assessment skills, learned to prioritize competing demands, and collaborated with interdisciplinary teams.
-
-I am highly motivated to learn, grow, and contribute meaningfully to patient care. I take pride in reliability, compassion, and clear communication, and I am eager to build my career with your organization.`
-};
-
-function setField(id, value, placeholder) {
-  const el = document.getElementById(id);
-  if (!value) {
-    el.textContent = placeholder;
-    el.style.display = "none";
+window.onload = function() {
+  // Password prompt
+  const password = "mypassword"; // <-- Change your password here
+  const userInput = prompt("Enter password to access this page:");
+  if (userInput === password) {
+    document.getElementById("protectedContent").style.display = "block";
   } else {
-    el.textContent = value;
-    el.style.display = "block";
+    document.body.innerHTML = "<h1>Access Denied</h1>";
+    return;
   }
-}
 
-function updatePreview() {
-  const name = document.getElementById("name").value || "Your Name";
-  const address = document.getElementById("address").value;
-  const phone = document.getElementById("phone").value;
-  const email = document.getElementById("email").value;
-  const date = document.getElementById("date").value;
-  const hiringManager = document.getElementById("hiringManager").value;
-  const company = document.getElementById("company").value;
-  const companyAddress = document.getElementById("companyAddress").value;
+  const templates = {
+    medsurg: `I am eager to apply for the Medical-Surgical Nurse position at your facility...`,
+    icu: `I am excited to apply for the ICU Nurse role at your hospital...`,
+    er: `As an experienced Emergency Room Nurse, I thrive in high-acuity...`,
+    travel: `I am a dedicated Travel Nurse with a track record...`,
+    leadership: `With a background in nursing leadership, I have successfully guided teams...`,
+    newgrad: `As a recent nursing graduate, I bring a strong academic foundation...`
+  };
 
-  document.getElementById("prevName").textContent = name;
-  setField("prevAddress", address, "Your Address");
-  setField("prevPhone", phone, "Phone");
-  setField("prevEmail", email, "Email");
-  setField("prevDate", date, "Date");
+  function setField(id, value, placeholder) {
+    const el = document.getElementById(id);
+    if (!value) { el.textContent = placeholder; el.style.display = "none"; }
+    else { el.textContent = value; el.style.display = "block"; }
+  }
 
-  document.getElementById("prevTypedName").textContent = name;
-  setField("prevHiringManager", hiringManager, "Hiring Manager Name");
-  setField("prevCompany", company, "Company Name");
-  setField("prevCompanyAddress", companyAddress, "Company Address");
+  function updatePreview() {
+    const name = document.getElementById("name").value || "Your Name";
+    const address = document.getElementById("address").value;
+    const phone = document.getElementById("phone").value;
+    const email = document.getElementById("email").value;
+    const date = document.getElementById("date").value;
+    const hiringManager = document.getElementById("hiringManager").value;
+    const company = document.getElementById("company").value;
+    const companyAddress = document.getElementById("companyAddress").value;
 
-  const bodyText = document.getElementById("body").value || "Cover letter text will appear here...";
-  document.getElementById("prevBody").textContent = bodyText;
+    document.getElementById("prevName").textContent = name;
+    setField("prevAddress", address, "Your Address");
+    setField("prevPhone", phone, "Phone");
+    setField("prevEmail", email, "Email");
+    setField("prevDate", date, "Date");
+    document.getElementById("prevTypedName").textContent = name;
+    setField("prevHiringManager", hiringManager, "Hiring Manager Name");
+    setField("prevCompany", company, "Company Name");
+    setField("prevCompanyAddress", companyAddress, "Company Address");
 
-  const sigName = document.getElementById("signatureName").value || name;
-  const sigFont = document.getElementById("signatureFont").value;
-  const signatureElem = document.getElementById("prevSignature");
-  signatureElem.textContent = sigName;
-  signatureElem.style.fontFamily = sigFont;
+    const bodyText = document.getElementById("body").value || "Cover letter text will appear here...";
+    document.getElementById("prevBody").textContent = bodyText;
 
-  const styleClass = document.getElementById("coverStyle").value;
-  const letter = document.getElementById("letterPreview");
-  letter.className = "letter-preview " + styleClass;
-}
+    const sigName = document.getElementById("signatureName").value || name;
+    const sigFont = document.getElementById("signatureFont").value;
+    const signatureElem = document.getElementById("prevSignature");
+    signatureElem.textContent = sigName;
+    signatureElem.style.fontFamily = sigFont;
 
-[
-  "template","name","address","phone","email","date","hiringManager",
-  "company","companyAddress","body","signatureName","signatureFont","coverStyle"
-].forEach(id => {
-  document.getElementById(id).addEventListener("input", (e) => {
-    if (id === "template") {
-      const selected = e.target.value;
-      if (templates[selected]) {
-        document.getElementById("body").value = templates[selected];
+    const styleClass = document.getElementById("coverStyle").value;
+    document.getElementById("letterPreview").className = "letter-preview " + styleClass;
+  }
+
+  ["template","name","address","phone","email","date","hiringManager",
+   "company","companyAddress","body","signatureName","signatureFont","coverStyle"
+  ].forEach(id => {
+    document.getElementById(id).addEventListener("input", (e) => {
+      if (id === "template") {
+        const selected = e.target.value;
+        if (templates[selected]) {
+          document.getElementById("body").value = templates[selected];
+        }
       }
-    }
+      updatePreview();
+    });
+  });
+
+  document.getElementById("resetBtn").addEventListener("click", () => {
+    document.querySelectorAll("input, textarea, select").forEach(el => el.value = "");
+    document.getElementById("coverStyle").value = "style-classic";
     updatePreview();
   });
-});
 
-document.getElementById("resetBtn").addEventListener("click", () => {
-  document.querySelectorAll("input, textarea, select").forEach(el => el.value = "");
-  document.getElementById("coverStyle").value = "style-classic";
+  document.getElementById("downloadBtn").addEventListener("click", () => {
+    const element = document.getElementById("letterPreview");
+    html2pdf().set({
+      margin: [0,0,0,0],
+      filename: 'cover_letter.pdf',
+      image: { type: 'jpeg', quality: 1 },
+      html2canvas: { scale: 2, scrollY: 0 },
+      jsPDF: { unit: 'in', format:
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    }).from(element).save();
+  });
+
   updatePreview();
-});
-
-document.getElementById("downloadBtn").addEventListener("click", () => {
-  const element = document.getElementById("letterPreview");
-  const opt = {
-    margin: [0, 0, 0, 0],
-    filename: 'cover_letter.pdf',
-    image: { type: 'jpeg', quality: 1 },
-    html2canvas: { scale: 2, scrollY: 0 },
-    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-  };
-  html2pdf().set(opt).from(element).save();
-});
-
-updatePreview();
+};
 </script>
-</div>
+
+</div> <!-- end protectedContent -->
 </body>
 </html>
