@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <title>Cover Letter Builder</title>
 
-<!-- Google Fonts: signature + body/heading options -->
+<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Roboto:wght@400;500&family=Open+Sans:wght@400;600&family=Montserrat:wght@400;600&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
@@ -81,16 +81,9 @@
     box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
   }
 
-  .form-section textarea {
-    resize: vertical;
-    min-height: 140px;
-  }
+  .form-section textarea { resize: vertical; min-height: 140px; }
 
-  .buttons {
-    margin-top: 18px;
-    display: flex;
-    gap: 10px;
-  }
+  .buttons { margin-top: 18px; display: flex; gap: 10px; }
 
   .buttons button {
     padding: 10px 16px;
@@ -104,19 +97,10 @@
     letter-spacing: .2px;
   }
 
-  .buttons button#resetBtn {
-    background: #e5e7eb;
-    color: #111827;
-  }
+  .buttons button#resetBtn { background: #e5e7eb; color: #111827; }
+  .buttons button:hover { filter: brightness(0.95); }
 
-  .buttons button:hover {
-    filter: brightness(0.95);
-  }
-
-  .preview-section {
-    flex: 1;
-    padding: 0;
-  }
+  .preview-section { flex: 1; padding: 0; }
 
   .letter-preview {
     background: white;
@@ -136,48 +120,12 @@
     font-family: var(--body-font);
   }
 
-  .header-info {
-    margin-bottom: 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    color: #232323;
-  }
-
-  .header-name {
-    margin: 0 0 6px 0;
-    font-weight: var(--name-font-weight);
-    font-size: var(--name-size);
-    color: var(--heading-color);
-    display: inline-block;
-    padding-bottom: 3px;
-    border-bottom: 2px solid var(--accent);
-  }
-
-  .contact-info {
-    margin: 0;
-    font-size: 10.5pt;
-    color: #444;
-  }
-
-  #prevHiringManager,
-  #prevCompany,
-  #prevCompanyAddress,
-  #prevDate {
-    margin: 0 0 4px 0;
-  }
-
-  #prevBody {
-    margin-top: 6px;
-    white-space: pre-wrap;
-  }
-
-  .signature {
-    font-family: 'Dancing Script', cursive;
-    font-size: 20pt;
-    margin-top: 16px;
-    color: #111;
-  }
+  .header-info { margin-bottom: 12px; display: flex; flex-direction: column; gap: 2px; color: #232323; }
+  .header-name { margin: 0 0 6px 0; font-weight: var(--name-font-weight); font-size: var(--name-size); color: var(--heading-color); display: inline-block; padding-bottom: 3px; border-bottom: 2px solid var(--accent); }
+  .contact-info { margin: 0; font-size: 10.5pt; color: #444; }
+  #prevHiringManager, #prevCompany, #prevCompanyAddress, #prevDate { margin: 0 0 4px 0; }
+  #prevBody { margin-top: 6px; white-space: pre-wrap; }
+  .signature { font-family: 'Dancing Script', cursive; font-size: 20pt; margin-top: 16px; color: #111; }
 
   .style-classic { --accent: #1f3a68; --heading-color: #12213b; --body-font: "Times New Roman", Times, serif; --name-size: 16pt; }
   .style-modern { --accent: #334155; --heading-color: #111827; --body-font: "Roboto", Arial, sans-serif; --name-size: 16pt; }
@@ -191,110 +139,98 @@
 </head>
 <body>
 
-<div id="protectedContent" style="display:none;">
-<h1>Cover Letter Builder</h1>
+<script>
+  // Immediate password prompt
+  const password = "NURSECOVER2025"; // change this
+  const userInput = prompt("Enter password to access this page:");
+  if (userInput !== password) {
+    document.body.innerHTML = "<h1>Access Denied</h1>";
+  }
+</script>
 
-<div class="container">
-  <div class="form-section">
-    <label for="template">Choose Nurse Specialty Template:</label>
-    <select id="template">
-      <option value="">-- Select Template --</option>
-      <option value="medsurg">Medical-Surgical Nurse</option>
-      <option value="icu">ICU Nurse</option>
-      <option value="er">Emergency Room Nurse</option>
-      <option value="travel">Travel Nurse</option>
-      <option value="leadership">Nurse Leadership</option>
-      <option value="newgrad">New Graduate Nurse</option>
-    </select>
+<div id="protectedContent">
+  <h1>Cover Letter Builder</h1>
 
-    <label>Your Name:</label>
-    <input type="text" id="name" placeholder="Full Name">
+  <div class="container">
+    <div class="form-section">
+      <label for="template">Choose Nurse Specialty Template:</label>
+      <select id="template">
+        <option value="">-- Select Template --</option>
+        <option value="medsurg">Medical-Surgical Nurse</option>
+        <option value="icu">ICU Nurse</option>
+        <option value="er">Emergency Room Nurse</option>
+        <option value="travel">Travel Nurse</option>
+        <option value="leadership">Nurse Leadership</option>
+        <option value="newgrad">New Graduate Nurse</option>
+      </select>
 
-    <label>Your Address:</label>
-    <input type="text" id="address" placeholder="Street, City, State, ZIP">
+      <label>Your Name:</label>
+      <input type="text" id="name" placeholder="Full Name">
+      <label>Your Address:</label>
+      <input type="text" id="address" placeholder="Street, City, State, ZIP">
+      <label>Your Phone:</label>
+      <input type="text" id="phone" placeholder="(123) 456-7890">
+      <label>Your Email:</label>
+      <input type="text" id="email" placeholder="you@email.com">
+      <label>Date:</label>
+      <input type="text" id="date" placeholder="Month Day, Year">
+      <label>Hiring Manager Name:</label>
+      <input type="text" id="hiringManager" placeholder="Hiring Manager Name">
+      <label>Company Name:</label>
+      <input type="text" id="company" placeholder="Company Name">
+      <label>Company Address:</label>
+      <input type="text" id="companyAddress" placeholder="Street, City, State, ZIP">
+      <label>Cover Letter Body:</label>
+      <textarea id="body" rows="12" placeholder="Type your cover letter here..."></textarea>
+      <label>Signature Name:</label>
+      <input type="text" id="signatureName" placeholder="Your Signature Name">
+      <label>Signature Font:</label>
+      <select id="signatureFont">
+        <option value="'Dancing Script', cursive">Dancing Script</option>
+        <option value="'Great Vibes', cursive">Great Vibes</option>
+      </select>
+      <label>Cover Letter Style:</label>
+      <select id="coverStyle">
+        <option value="style-classic" selected>Classic (Navy)</option>
+        <option value="style-modern">Modern (Slate)</option>
+        <option value="style-elegant">Elegant (Burgundy)</option>
+        <option value="style-minimal">Minimal (Charcoal)</option>
+        <option value="style-professional">Professional (Navy Rule)</option>
+        <option value="style-contemporary">Contemporary (Deep Green)</option>
+      </select>
 
-    <label>Your Phone:</label>
-    <input type="text" id="phone" placeholder="(123) 456-7890">
-
-    <label>Your Email:</label>
-    <input type="text" id="email" placeholder="you@email.com">
-
-    <label>Date:</label>
-    <input type="text" id="date" placeholder="Month Day, Year">
-
-    <label>Hiring Manager Name:</label>
-    <input type="text" id="hiringManager" placeholder="Hiring Manager Name">
-
-    <label>Company Name:</label>
-    <input type="text" id="company" placeholder="Company Name">
-
-    <label>Company Address:</label>
-    <input type="text" id="companyAddress" placeholder="Street, City, State, ZIP">
-
-    <label>Cover Letter Body:</label>
-    <textarea id="body" rows="12" placeholder="Type your cover letter here..."></textarea>
-
-    <label>Signature Name:</label>
-    <input type="text" id="signatureName" placeholder="Your Signature Name">
-
-    <label>Signature Font:</label>
-    <select id="signatureFont">
-      <option value="'Dancing Script', cursive">Dancing Script</option>
-      <option value="'Great Vibes', cursive">Great Vibes</option>
-    </select>
-
-    <label>Cover Letter Style:</label>
-    <select id="coverStyle">
-      <option value="style-classic" selected>Classic (Navy)</option>
-      <option value="style-modern">Modern (Slate)</option>
-      <option value="style-elegant">Elegant (Burgundy)</option>
-      <option value="style-minimal">Minimal (Charcoal)</option>
-      <option value="style-professional">Professional (Navy Rule)</option>
-      <option value="style-contemporary">Contemporary (Deep Green)</option>
-    </select>
-
-    <div class="buttons">
-      <button id="resetBtn" type="button">Reset</button>
-      <button id="downloadBtn" type="button">Download PDF</button>
-    </div>
-  </div>
-
-  <div class="preview-section">
-    <div id="letterPreview" class="letter-preview style-classic">
-      <div class="header-info">
-        <div class="header-name" id="prevName">Your Name</div>
-        <div class="contact-info" id="prevAddress">Your Address</div>
-        <div class="contact-info" id="prevPhone">Phone</div>
-        <div class="contact-info" id="prevEmail">Email</div>
-        <div class="contact-info" id="prevDate">Date</div>
+      <div class="buttons">
+        <button id="resetBtn" type="button">Reset</button>
+        <button id="downloadBtn" type="button">Download PDF</button>
       </div>
+    </div>
 
-      <div id="prevHiringManager">Hiring Manager Name</div>
-      <div id="prevCompany">Company Name</div>
-      <div id="prevCompanyAddress">Company Address</div>
-      <br>
-      <div id="prevBody">Cover letter text will appear here...</div>
-      <br><br>
-      <div id="prevSignoff">Sincerely,</div>
-      <div class="signature" id="prevSignature">Your Signature</div>
-      <div id="prevTypedName">Your Name</div>
+    <div class="preview-section">
+      <div id="letterPreview" class="letter-preview style-classic">
+        <div class="header-info">
+          <div class="header-name" id="prevName">Your Name</div>
+          <div class="contact-info" id="prevAddress">Your Address</div>
+          <div class="contact-info" id="prevPhone">Phone</div>
+          <div class="contact-info" id="prevEmail">Email</div>
+          <div class="contact-info" id="prevDate">Date</div>
+        </div>
+        <div id="prevHiringManager">Hiring Manager Name</div>
+        <div id="prevCompany">Company Name</div>
+        <div id="prevCompanyAddress">Company Address</div>
+        <br>
+        <div id="prevBody">Cover letter text will appear here...</div>
+        <br><br>
+        <div id="prevSignoff">Sincerely,</div>
+        <div class="signature" id="prevSignature">Your Signature</div>
+        <div id="prevTypedName">Your Name</div>
+      </div>
     </div>
   </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
-window.onload = function() {
-  // Password prompt
-  const password = "NURSECOVER2025"; // <-- Change your password here
-  const userInput = prompt("Enter password to access this page:");
-  if (userInput === password) {
-    document.getElementById("protectedContent").style.display = "block";
-  } else {
-    document.body.innerHTML = "<h1>Access Denied</h1>";
-    return;
-  }
-
+  // All the previous JS for template updates, preview, reset, download
   const templates = {
     medsurg: `I am eager to apply for the Medical-Surgical Nurse position at your facility...`,
     icu: `I am excited to apply for the ICU Nurse role at your hospital...`,
@@ -349,9 +285,7 @@ window.onload = function() {
     document.getElementById(id).addEventListener("input", (e) => {
       if (id === "template") {
         const selected = e.target.value;
-        if (templates[selected]) {
-          document.getElementById("body").value = templates[selected];
-        }
+        if (templates[selected]) { document.getElementById("body").value = templates[selected]; }
       }
       updatePreview();
     });
@@ -364,21 +298,17 @@ window.onload = function() {
   });
 
   document.getElementById("downloadBtn").addEventListener("click", () => {
-    const element = document.getElementById("letterPreview");
     html2pdf().set({
       margin: [0,0,0,0],
       filename: 'cover_letter.pdf',
       image: { type: 'jpeg', quality: 1 },
       html2canvas: { scale: 2, scrollY: 0 },
-      jsPDF: { unit: 'in', format:
       jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-    }).from(element).save();
+    }).from(document.getElementById("letterPreview")).save();
   });
 
   updatePreview();
-};
 </script>
 
-</div> <!-- end protectedContent -->
 </body>
 </html>
