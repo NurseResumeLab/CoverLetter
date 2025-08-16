@@ -17,7 +17,6 @@
     --shadow: 0 6px 16px rgba(0,0,0,0.08);
   }
 
-  /* App frame */
   body {
     font-family: Arial, sans-serif;
     background: var(--bg);
@@ -97,7 +96,7 @@
     padding: 10px 16px;
     border: none;
     cursor: pointer;
-    background: #1f3a68; /* navy-ish primary */
+    background: #1f3a68;
     color: white;
     border-radius: 6px;
     font-size: 14px;
@@ -119,7 +118,6 @@
     padding: 0;
   }
 
-  /* Letter page */
   .letter-preview {
     background: white;
     width: 8.5in;
@@ -129,8 +127,7 @@
     font-size: 12pt;
     line-height: 1.5;
     color: var(--ink);
-    /* Theme variables with sensible defaults */
-    --accent: #1f3a68;               /* navy */
+    --accent: #1f3a68;
     --heading-color: #111;
     --body-font: "Times New Roman", Times, serif;
     --name-font-weight: 700;
@@ -154,7 +151,7 @@
     color: var(--heading-color);
     display: inline-block;
     padding-bottom: 3px;
-    border-bottom: 2px solid var(--accent); /* Underline under name that adapts to theme color */
+    border-bottom: 2px solid var(--accent);
   }
 
   .contact-info {
@@ -170,84 +167,46 @@
     margin: 0 0 4px 0;
   }
 
-  /* Preserve body paragraph spacing cleanly */
   #prevBody {
     margin-top: 6px;
-    white-space: pre-wrap; /* preserves \n in both preview and PDF */
+    white-space: pre-wrap;
   }
 
   .signature {
-    font-family: 'Dancing Script', cursive; /* default, overridden inline when selected */
+    font-family: 'Dancing Script', cursive;
     font-size: 20pt;
     margin-top: 16px;
     color: #111;
   }
 
-  /* ========== Theme Styles (muted professional) ========== */
-  /* Classic – Times New Roman + Navy accent */
-  .style-classic {
-    --accent: #1f3a68; /* deep navy */
-    --heading-color: #12213b;
-    --body-font: "Times New Roman", Times, serif;
-    --name-size: 16pt;
-  }
-
-  /* Modern – Roboto + Slate accent */
-  .style-modern {
-    --accent: #334155; /* slate 700 */
-    --heading-color: #111827;
-    --body-font: "Roboto", Arial, sans-serif;
-    --name-size: 16pt;
-  }
-
-  /* Elegant – Playfair Display + Burgundy accent */
-  .style-elegant {
-    --accent: #7a2430; /* burgundy */
-    --heading-color: #36161a;
-    --body-font: "Playfair Display", Georgia, serif;
-    --name-size: 17pt;
-  }
-
-  /* Minimal – Open Sans + Charcoal accent */
-  .style-minimal {
-    --accent: #374151; /* charcoal */
-    --heading-color: #1f2937;
-    --body-font: "Open Sans", Arial, sans-serif;
-    --name-size: 16pt;
-  }
-
-  /* Professional – Merriweather + Navy top rule */
-  .style-professional {
-    --accent: #233b6e; /* muted navy */
-    --heading-color: #14223f;
-    --body-font: "Merriweather", Georgia, serif;
-    --name-size: 16.5pt;
-    position: relative;
-  }
-  .style-professional::before {
-    content: "";
-    position: absolute;
-    left: 1in; right: 1in; top: 0.75in;
-    border-top: 3px solid var(--accent);
-  }
-  /* add a smidge of top padding to avoid the line touching text */
+  .style-classic { --accent: #1f3a68; --heading-color: #12213b; --body-font: "Times New Roman", Times, serif; --name-size: 16pt; }
+  .style-modern { --accent: #334155; --heading-color: #111827; --body-font: "Roboto", Arial, sans-serif; --name-size: 16pt; }
+  .style-elegant { --accent: #7a2430; --heading-color: #36161a; --body-font: "Playfair Display", Georgia, serif; --name-size: 17pt; }
+  .style-minimal { --accent: #374151; --heading-color: #1f2937; --body-font: "Open Sans", Arial, sans-serif; --name-size: 16pt; }
+  .style-professional { --accent: #233b6e; --heading-color: #14223f; --body-font: "Merriweather", Georgia, serif; --name-size: 16.5pt; position: relative; }
+  .style-professional::before { content: ""; position: absolute; left: 1in; right: 1in; top: 0.75in; border-top: 3px solid var(--accent); }
   .style-professional .header-info { padding-top: 8px; }
-
-  /* Contemporary – Montserrat (titles) feel with deep green accent */
-  .style-contemporary {
-    --accent: #2f4f3e; /* deep green */
-    --heading-color: #1f2a25;
-    --body-font: "Montserrat", "Open Sans", Arial, sans-serif;
-    --name-size: 16pt;
-  }
+  .style-contemporary { --accent: #2f4f3e; --heading-color: #1f2a25; --body-font: "Montserrat", "Open Sans", Arial, sans-serif; --name-size: 16pt; }
 </style>
 </head>
 <body>
 
+<script>
+  (function() {
+    const password = "mypassword"; // <-- Set your password here
+    const userInput = prompt("Enter password to access this page:");
+    if (userInput === password) {
+      document.getElementById("protectedContent").style.display = "block";
+    } else {
+      document.body.innerHTML = "<h1>Access Denied</h1>";
+    }
+  })();
+</script>
+
+<div id="protectedContent" style="display:none;">
 <h1>Cover Letter Builder</h1>
 
 <div class="container">
-  <!-- Controls -->
   <div class="form-section">
     <label for="template">Choose Nurse Specialty Template:</label>
     <select id="template">
@@ -312,7 +271,6 @@
     </div>
   </div>
 
-  <!-- Preview -->
   <div class="preview-section">
     <div id="letterPreview" class="letter-preview style-classic">
       <div class="header-info">
@@ -336,10 +294,8 @@
   </div>
 </div>
 
-<!-- html2pdf -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
-/* Longer, two-paragraph defaults */
 const templates = {
   medsurg: `I am eager to apply for the Medical-Surgical Nurse position at your facility. Over the course of my career, I have provided high-quality patient care in diverse medical settings. I excel at assessing patient needs, administering medications, monitoring for changes, and collaborating with interdisciplinary teams to coordinate effective care plans that prioritize safety and recovery.
 
@@ -361,7 +317,6 @@ I am passionate about building cohesive, supportive teams and aligning daily pra
 I am highly motivated to learn, grow, and contribute meaningfully to patient care. I take pride in reliability, compassion, and clear communication, and I am eager to build my career with your organization.`
 };
 
-/* Helper: toggle visibility for optional header fields */
 function setField(id, value, placeholder) {
   const el = document.getElementById(id);
   if (!value) {
@@ -373,7 +328,6 @@ function setField(id, value, placeholder) {
   }
 }
 
-/* Update preview content + styles */
 function updatePreview() {
   const name = document.getElementById("name").value || "Your Name";
   const address = document.getElementById("address").value;
@@ -395,25 +349,20 @@ function updatePreview() {
   setField("prevCompany", company, "Company Name");
   setField("prevCompanyAddress", companyAddress, "Company Address");
 
-  /* Preserve paragraph spacing via CSS (pre-wrap).
-     Just set textContent; no need to inject <br> */
   const bodyText = document.getElementById("body").value || "Cover letter text will appear here...";
   document.getElementById("prevBody").textContent = bodyText;
 
-  /* Signature */
   const sigName = document.getElementById("signatureName").value || name;
   const sigFont = document.getElementById("signatureFont").value;
   const signatureElem = document.getElementById("prevSignature");
   signatureElem.textContent = sigName;
   signatureElem.style.fontFamily = sigFont;
 
-  /* Apply theme */
   const styleClass = document.getElementById("coverStyle").value;
   const letter = document.getElementById("letterPreview");
   letter.className = "letter-preview " + styleClass;
 }
 
-/* Wire up inputs */
 [
   "template","name","address","phone","email","date","hiringManager",
   "company","companyAddress","body","signatureName","signatureFont","coverStyle"
@@ -429,15 +378,12 @@ function updatePreview() {
   });
 });
 
-/* Reset */
 document.getElementById("resetBtn").addEventListener("click", () => {
   document.querySelectorAll("input, textarea, select").forEach(el => el.value = "");
-  // Keep Classic as default theme
   document.getElementById("coverStyle").value = "style-classic";
   updatePreview();
 });
 
-/* PDF */
 document.getElementById("downloadBtn").addEventListener("click", () => {
   const element = document.getElementById("letterPreview");
   const opt = {
@@ -450,8 +396,8 @@ document.getElementById("downloadBtn").addEventListener("click", () => {
   html2pdf().set(opt).from(element).save();
 });
 
-/* Initial render */
 updatePreview();
 </script>
+</div>
 </body>
 </html>
