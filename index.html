@@ -100,6 +100,22 @@
 
   .buttons button#resetBtn { background: #e5e7eb; color: #111827; }
   .buttons button:hover { filter: brightness(0.95); }
+  
+  button.secondary {
+  background-color: #e6f0fa;   /* light blue background */
+  color: #0073e6;             /* blue text */
+  border: 1px solid #0073e6;  /* blue outline */
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button.secondary:hover {
+  background-color: #d0e7fb;  /* slightly darker on hover */
+}
+
 
   .preview-section { flex: 1; padding: 0; }
 
@@ -147,15 +163,20 @@
   <div class="container">
     <div class="form-section">
       <label for="template">Choose Nurse Specialty Template:</label>
-      <select id="template">
-        <option value="">-- Select Template --</option>
-        <option value="medsurg">Medical-Surgical Nurse</option>
-        <option value="icu">ICU Nurse</option>
-        <option value="er">Emergency Room Nurse</option>
-        <option value="travel">Travel Nurse</option>
-        <option value="leadership">Nurse Leadership</option>
-        <option value="newgrad">New Graduate Nurse</option>
-      </select>
+<select id="template">
+  <option value="">--Select--</option>
+  <option value="medsurg">Medical-Surgical Nurse</option>
+  <option value="icu">ICU Nurse</option>
+  <option value="er">ER Nurse</option>
+  <option value="travel">Travel Nurse</option>
+  <option value="leadership">Nurse Leadership</option>
+  <option value="newgrad">New Graduate Nurse</option>
+</select>
+
+<!-- Moved Regenerate button here -->
+<div style="margin-top:10px;">
+  <button id="regenBtn" type="button" class="secondary">Regenerate Draft</button>
+</div>
 
       <label>Your Name:</label>
       <input type="text" id="name" placeholder="Full Name">
@@ -195,7 +216,6 @@
       <!-- Add new button next to Download/Reset -->
 <div class="buttons">
   <button id="resetBtn" type="button">Reset</button>
-  <button id="regenBtn" type="button">Regenerate Draft</button>
   <button id="downloadBtn" type="button">Download PDF</button>
 </div>
     </div>
@@ -234,188 +254,208 @@
     document.getElementById("protectedContent").style.display = "block";
   }
 
-  // COVER LETTER BUILDER FUNCTIONALITY
-  const templates = {
+ // COVER LETTER BUILDER FUNCTIONALITY
+
+const templates = {
   medsurg: [
-    `I am eager to apply for the Medical-Surgical Nurse position at your facility. With extensive experience caring for patients with diverse and often complex health conditions, I have developed strong clinical judgment, adaptability, and the ability to manage multiple priorities in fast-paced environments. I am proficient in patient assessments, medication administration, wound care, and care coordination, ensuring quality outcomes for patients across a variety of diagnoses.  
+    `I am writing to express my interest in the Medical-Surgical Nurse position at your facility. With experience caring for patients with diverse medical conditions, I have developed expertise in post-operative care, medication administration, wound management, and patient education. I am highly skilled in prioritizing tasks, managing multiple patients simultaneously, and collaborating with interdisciplinary teams to ensure the highest quality of care.  
 
-Beyond my technical skills, I value compassionate care and effective communication. I pride myself on working collaboratively with interdisciplinary teams, supporting patient education, and advocating for the best interests of those I serve. I believe these qualities align closely with the standards of your organization, and I am excited about the opportunity to contribute to your team’s success.`,
+I value compassionate, patient-centered care and strive to communicate effectively with patients and families. I am confident that my clinical experience, attention to detail, and dedication to quality care make me a strong candidate for your Med-Surg team.`,
 
-    `I am writing to express my interest in the Medical-Surgical Nurse position. Throughout my career, I have had the privilege of caring for patients with a wide range of health conditions, requiring adaptability, attention to detail, and critical thinking. From managing post-surgical recoveries to supporting patients with chronic illnesses, I have consistently provided safe, efficient, and compassionate care.  
+    `I am applying for the Medical-Surgical Nurse position with enthusiasm. Over the course of my career, I have cared for patients with complex medical needs, balancing acute and chronic conditions while maintaining a focus on safety and comfort. My experience includes performing patient assessments, administering medications, and coordinating care plans with physicians and other healthcare professionals.  
 
-In addition to my clinical expertise, I excel in fostering strong communication with patients, families, and interdisciplinary teams. I understand the importance of patient education and advocacy in achieving positive outcomes, and I am committed to upholding your facility’s standards of excellence.` ,
+I believe that strong communication, teamwork, and empathy are equally important as clinical skills. I am excited about the opportunity to contribute my expertise and commitment to excellence to your team.`,
 
-`I am applying for the Medical-Surgical Nurse position with great enthusiasm. I have cared for patients with a wide range of acute and chronic conditions, requiring critical thinking, organization, and adaptability. I am proficient in post-operative care, medication administration, and patient education, ensuring that patients and families feel supported throughout their healthcare journey.  
+    `I am excited to apply for the Medical-Surgical Nurse role. I have a proven track record of delivering high-quality patient care in fast-paced hospital environments, including managing post-operative recovery and chronic conditions. I am skilled at anticipating patient needs, responding quickly to changes in condition, and providing education to patients and families.  
 
-I take pride in my ability to balance multiple responsibilities while maintaining attention to detail. I believe that effective teamwork and communication are just as important as clinical skill, and I look forward to contributing both to your Med-Surg team.`
+I take pride in my ability to combine technical competence with compassion, ensuring patients feel informed, safe, and supported. I am eager to bring my dedication and clinical expertise to your organization.`,
 
+    `I am passionate about providing exceptional care as a Medical-Surgical Nurse. My experience includes caring for a variety of patient populations, collaborating with multidisciplinary teams, and maintaining meticulous attention to detail in all aspects of care. I strive to create a positive patient experience while promoting optimal clinical outcomes.  
+
+I am confident that my skills, adaptability, and commitment to compassionate care will make me a valuable member of your Med-Surg team.`
   ],
 
   icu: [
-    `I am excited to apply for the ICU Nurse role at your hospital. My background includes caring for critically ill patients who require constant monitoring, advanced life support, and complex interventions. I have developed strong expertise in ventilator management, titrating IV drips, and responding swiftly to emergencies. This role has sharpened my ability to remain composed under pressure while delivering precise, evidence-based care.  
+    `I am eager to apply for the ICU Nurse position at your hospital. I have experience providing care to critically ill patients, including managing ventilators, titrating vasoactive medications, and performing complex assessments. I am skilled at recognizing subtle changes in patient conditions and responding quickly to emergencies.  
 
-In addition to technical skill, I place a strong emphasis on emotional support and communication with families during critical moments. I recognize that ICU patients and their loved ones face significant challenges, and I strive to provide clarity, reassurance, and compassion. I am confident that my expertise, combined with my calm and supportive approach, make me a strong fit for your ICU team.`,
+In addition to technical expertise, I prioritize clear communication with patients, families, and multidisciplinary teams. I understand the emotional and physical challenges ICU patients face, and I strive to provide care that is both safe and compassionate.`,
 
-    `I am eager to bring my intensive care expertise to your hospital’s ICU. Over the course of my nursing career, I have managed the needs of patients in critical condition, often requiring rapid assessments, complex medication titration, and collaboration with multidisciplinary teams. I have extensive experience in ventilator management, invasive line care, and hemodynamic monitoring.  
+    `I am excited to bring my intensive care expertise to your ICU team. My background includes managing patients with complex and unstable conditions, collaborating closely with physicians and support staff, and implementing evidence-based interventions. I excel in high-pressure situations and maintain focus on both patient safety and comfort.  
 
-What sets me apart is my ability to balance clinical precision with compassionate care. I recognize that families in the ICU often face uncertainty and fear, and I take pride in providing clear communication and emotional support. I would be honored to bring this dedication and resilience to your team.`,
+I value the importance of family communication and emotional support in critical care. My goal is to contribute my clinical skills and compassionate approach to your ICU and help deliver excellent patient outcomes.`,
 
-`I am passionate about critical care and eager to contribute my expertise as an ICU Nurse at your hospital. My experience includes monitoring unstable patients, managing ventilators, titrating vasoactive drips, and responding to emergencies with precision and confidence.  
+    `I am passionate about critical care nursing and excited to join your ICU team. I have experience managing hemodynamically unstable patients, administering advanced therapies, and providing continuous monitoring and assessment. I am confident in my ability to handle emergencies with composure and precision.  
 
-What I value most about ICU nursing is the opportunity to provide both advanced clinical care and emotional support to patients and families in crisis. I am committed to bringing compassion, focus, and teamwork to your critical care team.`
+I also emphasize holistic care, ensuring patients and families are informed and supported. My skills in teamwork, communication, and critical thinking make me a strong candidate for this position.`,
 
+    `I am applying for the ICU Nurse role with dedication and enthusiasm. I have a track record of providing high-quality care to critically ill patients, responding to rapid changes in condition, and collaborating effectively with all members of the healthcare team.  
+
+I focus on both clinical excellence and compassionate care, striving to create a safe and supportive environment for patients and families. I am eager to bring my experience, skill, and commitment to your ICU team.`
   ],
 
   er: [
-    `As an experienced Emergency Room Nurse, I thrive in high-acuity and unpredictable situations where quick decision-making and adaptability are essential. I am skilled in triage, rapid patient assessment, trauma care, and managing urgent medical needs with efficiency and accuracy. My ability to stay calm under pressure allows me to provide safe and effective care, even in chaotic and fast-changing environments.  
+    `I am applying for the Emergency Room Nurse position with enthusiasm. I have experience providing care in high-acuity settings, performing rapid assessments, managing trauma cases, and prioritizing care for multiple patients simultaneously. My ability to stay calm under pressure ensures patient safety and effective care delivery.  
 
-At the same time, I recognize the importance of empathy and communication, offering comfort to patients and families in moments of uncertainty. I am passionate about working in dynamic settings that demand collaboration and quick action, and I am eager to bring my energy, focus, and resilience to your emergency department team.`,
+I also emphasize clear communication with patients, families, and team members. My goal is to provide efficient, compassionate care while supporting the dynamic needs of the emergency department.`,
 
-    `I am applying for the Emergency Room Nurse position with great enthusiasm. My background includes responding to a wide range of medical emergencies, from trauma cases to acute illnesses, where immediate interventions are often life-saving. I am confident in my ability to manage multiple patients simultaneously, prioritize critical needs, and maintain composure in stressful environments.  
+    `I am excited to apply for the ER Nurse role. My experience includes triage, acute care interventions, trauma response, and patient education in fast-paced emergency settings. I thrive in unpredictable environments and excel at making rapid, accurate decisions that impact patient outcomes.  
 
-Beyond clinical skills, I strive to support patients and their families with compassion, ensuring that even in urgent situations they feel heard and cared for. I believe my blend of quick decision-making, teamwork, and patient advocacy makes me a valuable addition to your ER team.`,
+I am committed to collaborating with multidisciplinary teams and ensuring that every patient receives high-quality, compassionate care during their time in the emergency department.`,
 
-`I am excited to apply for the Emergency Room Nurse position. I thrive in fast-paced, unpredictable environments where critical thinking and rapid action are essential. I am experienced in trauma care, triage, and managing acute medical crises, always maintaining a calm and focused approach.  
+    `I am passionate about emergency nursing and providing quick, effective care in critical situations. I am skilled in stabilizing patients, coordinating care, and responding to medical emergencies with precision. My ability to remain focused under pressure allows me to manage multiple patients effectively.  
 
-Equally important, I recognize that patients and families often feel overwhelmed in the ER. I take the time to provide reassurance and clear communication, ensuring they feel safe and cared for even in urgent situations.`
+In addition to clinical competence, I prioritize patient-centered communication and empathy, ensuring families feel supported during stressful events.`,
 
+    `I am applying for the Emergency Room Nurse position because I thrive in dynamic, fast-paced settings. I bring expertise in acute care, trauma management, and rapid assessments, along with strong teamwork and communication skills.  
+
+My focus is on delivering high-quality, compassionate care while contributing positively to the efficiency and effectiveness of the emergency department team.`
   ],
 
   travel: [
-    `I am a dedicated Travel Nurse with a proven ability to adapt quickly to new clinical settings, teams, and patient populations. My experience across different states and facilities has strengthened my flexibility, problem-solving skills, and capacity to provide consistent, high-quality care in diverse environments. Whether floating between departments or stepping into high-demand roles, I thrive in situations that require adaptability and initiative.  
+    `I am a dedicated Travel Nurse with experience providing high-quality care in diverse clinical settings. I adapt quickly to new facilities, protocols, and patient populations, and I integrate seamlessly into existing teams. My experience has strengthened my flexibility, clinical decision-making, and communication skills.  
 
-I also understand that successful travel nursing is not only about clinical expertise but also about building trust quickly. I bring professionalism, cultural awareness, and strong interpersonal skills that help me integrate seamlessly into new teams and establish rapport with patients. I look forward to bringing this versatility and dedication to your organization.`,
+I also value building rapport with patients and colleagues, ensuring continuity of care and a positive work environment. I am excited to contribute my expertise and adaptability to your organization.`,
 
-    `As a Travel Nurse, I have had the privilege of working in a variety of healthcare environments, each with unique challenges and patient needs. This experience has sharpened my ability to adapt rapidly, learn new protocols efficiently, and contribute immediately to patient care teams. I am skilled in building rapport quickly with colleagues and patients alike, ensuring continuity and quality of care regardless of setting.  
+    `I am excited to apply for the Travel Nurse position. I have worked in multiple healthcare environments, each with unique challenges that have enhanced my clinical skills and problem-solving abilities. I excel at quickly learning new protocols and integrating into different team cultures.  
 
-I take pride in my ability to blend flexibility with professionalism, making me an asset to facilities that require nurses who can hit the ground running. I am confident my adaptability and commitment will allow me to make a positive impact at your organization.`,
+I pride myself on my professionalism, adaptability, and dedication to providing safe, compassionate care regardless of setting. I am confident that I can make an immediate positive impact at your facility.`,
 
-`As a Travel Nurse, I have successfully adapted to new facilities, units, and patient populations with efficiency and professionalism. My assignments have strengthened my flexibility, broadened my clinical skills, and taught me how to integrate seamlessly into new healthcare teams.  
+    `I am passionate about travel nursing and providing consistent, high-quality care in various healthcare settings. I am skilled at adjusting to new environments, collaborating with multidisciplinary teams, and maintaining effective communication with patients and staff.  
 
-I take pride in being dependable, culturally sensitive, and able to deliver consistent care regardless of location. I look forward to continuing this adaptability and contributing to your facility’s success during my assignment.`
+My goal is to ensure seamless patient care while bringing energy, adaptability, and professionalism to every assignment.`,
 
+    `I am applying for the Travel Nurse role because I thrive in dynamic environments and enjoy the challenge of adapting to different healthcare settings. I bring strong clinical expertise, flexibility, and a commitment to patient-centered care, making me a valuable addition to any team.`
   ],
 
   leadership: [
-    `With a background in nursing leadership, I have successfully guided teams through complex healthcare challenges while ensuring safe, high-quality patient outcomes. My leadership style emphasizes collaboration, mentorship, and accountability, and I take pride in supporting staff development while fostering a positive and efficient work environment. I am skilled in policy implementation, staff education, and process improvement initiatives that enhance patient care and operational efficiency.  
+    `I am applying for the Nurse Leadership position. I have experience guiding clinical teams, implementing policies, and fostering staff development while maintaining high standards of patient care. I focus on building collaborative environments that promote teamwork, accountability, and professional growth.  
 
-To me, leadership in nursing goes beyond management—it is about inspiring, motivating, and empowering others to perform at their best. I believe that by combining strong communication skills with clinical expertise, I can help your organization continue its tradition of excellence and innovation in patient care.`,
+My approach to leadership combines clinical expertise with effective communication and mentorship. I am dedicated to supporting staff while ensuring excellent patient outcomes, and I would be honored to bring my experience to your organization.`,
 
-    `I am writing to express my interest in the Nurse Leadership position. Throughout my career, I have been committed to building strong, cohesive teams that prioritize patient safety, efficiency, and professional growth. I have implemented evidence-based practices, developed staff training programs, and fostered environments where collaboration thrives.  
+    `I am passionate about nursing leadership and creating environments where teams can thrive. I have successfully led initiatives to improve workflows, enhance staff skills, and promote positive patient outcomes. I believe effective leaders inspire and empower their teams while maintaining accountability and high standards.  
 
-I believe that effective leaders create a culture of trust and accountability. By encouraging open communication, supporting staff development, and modeling professionalism, I aim to strengthen team performance and improve patient outcomes. I would welcome the opportunity to bring my leadership experience to your organization.`,
+I am eager to contribute my leadership skills to your organization, supporting both staff development and quality care initiatives.`,
 
-`I am applying for the Nurse Leadership position because I am passionate about supporting both patients and staff through effective leadership. I have guided teams through challenges, implemented process improvements, and promoted a culture of accountability and respect.  
+    `I am excited to apply for a nursing leadership role. My experience includes mentoring staff, coordinating interdisciplinary teams, and implementing evidence-based practices that enhance patient care. I focus on fostering a culture of collaboration, growth, and excellence.  
 
-I believe great leaders empower others to grow. By encouraging collaboration, recognizing strengths, and modeling professionalism, I strive to create an environment where staff feel supported and patients receive the highest standard of care.`
+I am confident that my leadership experience and commitment to professional development make me a strong candidate for this position.`,
 
+    `I am dedicated to nursing leadership and empowering teams to provide exceptional care. I have experience guiding staff, improving operational efficiency, and promoting a positive workplace culture.  
+
+I aim to inspire collaboration, accountability, and excellence, and I am eager to contribute my skills to support both staff and patient success.`
   ],
 
   newgrad: [
-    `As a recent nursing graduate, I bring a strong academic foundation combined with the dedication and enthusiasm to grow into a skilled and compassionate nurse. Through my clinical rotations, I gained experience in medical-surgical, pediatric, and critical care settings, where I developed essential nursing skills and a deep appreciation for the importance of patient-centered care. I am eager to continue learning and applying my knowledge in a professional setting.  
+    `As a recent nursing graduate, I bring enthusiasm, strong academic knowledge, and a commitment to learning. During my clinical rotations, I gained experience in multiple specialties, developing essential skills in patient assessment, care planning, and communication.  
 
-While I may be new to the field, I bring a fresh perspective, adaptability, and a willingness to learn from seasoned professionals. My professors and preceptors consistently noted my ability to connect with patients, demonstrate critical thinking, and collaborate with healthcare teams. I am excited about the opportunity to begin my nursing career at your organization and contribute to the well-being of your patients.`,
+I am eager to begin my professional career in a supportive environment where I can apply my knowledge, learn from experienced colleagues, and contribute to quality patient care.`,
 
-    `I am excited to apply for the New Graduate Nurse position at your facility. During my education and clinical rotations, I had the chance to provide care to patients across multiple specialties, from general medical-surgical units to more complex care settings. These experiences gave me confidence in performing assessments, administering medications, and collaborating with healthcare teams to deliver safe, effective care.  
+    `I am excited to start my career as a New Graduate Nurse. My clinical experience includes caring for patients in medical-surgical, pediatric, and critical care settings, where I developed adaptability, critical thinking, and strong patient-centered skills.  
 
-Although I am just beginning my professional career, I bring energy, dedication, and a genuine passion for nursing. I am eager to learn from experienced colleagues while contributing my strong work ethic and patient-centered approach. I would be honored to grow within your organization and serve your patients with compassion and professionalism.`,
+I am motivated, reliable, and eager to learn, and I look forward to contributing to your team while growing professionally.`,
 
-`As a new graduate nurse, I bring fresh knowledge, enthusiasm, and a strong foundation in evidence-based practice. During my clinical rotations, I gained experience in diverse specialties, including medical-surgical, pediatrics, and critical care, where I honed my ability to perform thorough assessments, deliver compassionate care, and work effectively in a team.  
+    `I am passionate about providing compassionate, high-quality care as a New Graduate Nurse. My education and rotations have given me a solid foundation in evidence-based practice, teamwork, and patient communication.  
 
-I may be new to the profession, but I am highly motivated to learn, grow, and make a meaningful difference. I am eager to begin my career at your facility and contribute to the exceptional care you provide.`
+I am confident in my ability to adapt quickly, collaborate effectively, and support patients’ needs while continuing to grow as a nurse in your organization.`,
 
+    `I am applying for the New Graduate Nurse position with enthusiasm and dedication. I bring energy, critical thinking, and a commitment to patient-centered care. I am eager to contribute to your team while learning from experienced nurses and building a strong foundation for my career.`
   ]
 };
-// Track which draft is active per specialty
-let draftIndex = {};
 
-// When template changes, load the first draft
-document.getElementById("template").addEventListener("input", (e) => {
-  const selected = e.target.value;
-  if (templates[selected]) {
-    draftIndex[selected] = 0; // reset index
-    document.getElementById("body").value = templates[selected][0];
-  }
-  updatePreview();
+// TRACK CURRENT DRAFT INDEX
+const draftIndex = {
+  medsurg: 0,
+  icu: 0,
+  er: 0,
+  travel: 0,
+  leadership: 0,
+  newgrad: 0
+};
+
+// HELPER FUNCTION TO UPDATE PREVIEW
+function setField(id, value, placeholder) {
+  const el = document.getElementById(id);
+  if (!value) { el.textContent = placeholder; el.style.display = "none"; }
+  else { el.textContent = value; el.style.display = "block"; }
+}
+
+function updatePreview() {
+  const name = document.getElementById("name").value || "Your Name";
+  const address = document.getElementById("address").value;
+  const phone = document.getElementById("phone").value;
+  const email = document.getElementById("email").value;
+  const date = document.getElementById("date").value;
+  const hiringManager = document.getElementById("hiringManager").value;
+  const company = document.getElementById("company").value;
+  const companyAddress = document.getElementById("companyAddress").value;
+
+  document.getElementById("prevName").textContent = name;
+  setField("prevAddress", address, "Your Address");
+  setField("prevPhone", phone, "Phone");
+  setField("prevEmail", email, "Email");
+  setField("prevDate", date, "Date");
+  document.getElementById("prevTypedName").textContent = name;
+  setField("prevHiringManager", hiringManager, "Hiring Manager Name");
+  setField("prevCompany", company, "Company Name");
+  setField("prevCompanyAddress", companyAddress, "Company Address");
+
+  const bodyText = document.getElementById("body").value || "Cover letter text will appear here...";
+  document.getElementById("prevBody").textContent = bodyText;
+
+  const sigName = document.getElementById("signatureName").value || name;
+  const sigFont = document.getElementById("signatureFont").value;
+  const signatureElem = document.getElementById("prevSignature");
+  signatureElem.textContent = sigName;
+  signatureElem.style.fontFamily = sigFont;
+
+  const styleClass = document.getElementById("coverStyle").value;
+  document.getElementById("letterPreview").className = "letter-preview " + styleClass;
+}
+
+// EVENT LISTENERS
+["template","name","address","phone","email","date","hiringManager",
+ "company","companyAddress","body","signatureName","signatureFont","coverStyle"
+].forEach(id => {
+  document.getElementById(id).addEventListener("input", (e) => {
+    if (id === "template") {
+      const selected = e.target.value;
+      if (templates[selected]) {
+        draftIndex[selected] = 0; // reset to first draft
+        document.getElementById("body").value = templates[selected][0];
+      }
+    }
+    updatePreview();
+  });
 });
 
-// Regenerate button cycles drafts
+// REGENERATE BUTTON
 document.getElementById("regenBtn").addEventListener("click", () => {
   const selected = document.getElementById("template").value;
-  if (templates[selected]) {
-    draftIndex[selected] = (draftIndex[selected] + 1) % templates[selected].length;
-    document.getElementById("body").value = templates[selected][draftIndex[selected]];
-    updatePreview();
-  }
-});
-  function setField(id, value, placeholder) {
-    const el = document.getElementById(id);
-    if (!value) { el.textContent = placeholder; el.style.display = "none"; }
-    else { el.textContent = value; el.style.display = "block"; }
-  }
-
-  function updatePreview() {
-    const name = document.getElementById("name").value || "Your Name";
-    const address = document.getElementById("address").value;
-    const phone = document.getElementById("phone").value;
-    const email = document.getElementById("email").value;
-    const date = document.getElementById("date").value;
-    const hiringManager = document.getElementById("hiringManager").value;
-    const company = document.getElementById("company").value;
-    const companyAddress = document.getElementById("companyAddress").value;
-
-    document.getElementById("prevName").textContent = name;
-    setField("prevAddress", address, "Your Address");
-    setField("prevPhone", phone, "Phone");
-    setField("prevEmail", email, "Email");
-    setField("prevDate", date, "Date");
-    document.getElementById("prevTypedName").textContent = name;
-    setField("prevHiringManager", hiringManager, "Hiring Manager Name");
-    setField("prevCompany", company, "Company Name");
-    setField("prevCompanyAddress", companyAddress, "Company Address");
-
-    const bodyText = document.getElementById("body").value || "Cover letter text will appear here...";
-    document.getElementById("prevBody").textContent = bodyText;
-
-    const sigName = document.getElementById("signatureName").value || name;
-    const sigFont = document.getElementById("signatureFont").value;
-    const signatureElem = document.getElementById("prevSignature");
-    signatureElem.textContent = sigName;
-    signatureElem.style.fontFamily = sigFont;
-
-    const styleClass = document.getElementById("coverStyle").value;
-    document.getElementById("letterPreview").className = "letter-preview " + styleClass;
-  }
-
-  ["template","name","address","phone","email","date","hiringManager",
-   "company","companyAddress","body","signatureName","signatureFont","coverStyle"
-  ].forEach(id => {
-    document.getElementById(id).addEventListener("input", (e) => {
-      if (id === "template") {
-        const selected = e.target.value;
-        if (templates[selected]) { document.getElementById("body").value = templates[selected]; }
-      }
-      updatePreview();
-    });
-  });
-
-  document.getElementById("resetBtn").addEventListener("click", () => {
-    document.querySelectorAll("input, textarea, select").forEach(el => el.value = "");
-    document.getElementById("coverStyle").value = "style-classic";
-    updatePreview();
-  });
-
-  document.getElementById("downloadBtn").addEventListener("click", () => {
-    html2pdf().set({
-      margin: [0,0,0,0],
-      filename: 'cover_letter.pdf',
-      image: { type: 'jpeg', quality: 1 },
-      html2canvas: { scale: 2, scrollY: 0 },
-      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-    }).from(document.getElementById("letterPreview")).save();
-  });
-
+  if (!selected) return;
+  draftIndex[selected] = (draftIndex[selected] + 1) % templates[selected].length;
+  document.getElementById("body").value = templates[selected][draftIndex[selected]];
   updatePreview();
+});
+
+// RESET BUTTON
+document.getElementById("resetBtn").addEventListener("click", () => {
+  document.querySelectorAll("input, textarea, select").forEach(el => el.value = "");
+  document.getElementById("coverStyle").value = "style-classic";
+  updatePreview();
+});
+
+// DOWNLOAD PDF
+document.getElementById("downloadBtn").addEventListener("click", () => {
+  html2pdf().set({
+    margin: [0,0,0,0],
+    filename: 'cover_letter.pdf',
+    image: { type: 'jpeg', quality: 1 },
+    html2canvas: { scale: 2, scrollY: 0 },
+    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+  }).from(document.getElementById("letterPreview")).save();
+});
+
+updatePreview();
 </script>
 
 </body>
